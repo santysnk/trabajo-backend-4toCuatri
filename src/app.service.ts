@@ -18,7 +18,9 @@ export class PeliculaService {
     console.log("Nueva pelicula:", nuevaPelicula);
 
     this.peliculas.push(nuevaPelicula);
-    console.log("peliculas", this.peliculas);
+    console.log("\npeliculas");
+	 console.log("---------------------");
+	 console.table(this.peliculas);
 
     return 'Pelicula agregada correctamente!';
   }
