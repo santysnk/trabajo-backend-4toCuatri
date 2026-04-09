@@ -1,31 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { Pelicula } from './interfaces/Pelicula.interface';
+import {InjectRepository} from '@nestjs/typeorm';
+import { Repository } from 'typeorm'; 
+import { Pelicula } from './entities/peli.entity';
+
 
 @Injectable()
 export class PeliculaService {
 
-  private peliculas: Pelicula[] = [
-    { id: 1, titulo: 'El Padrino', director: 'Francis Ford Coppola', anio: 1972 },
-    { id: 2, titulo: 'Volver al Futuro', director: 'Robert Zemeckis', anio: 1985 },
-    { id: 3, titulo: 'El Secreto de sus Ojos', director: 'Juan Jose Campanella', anio: 2009 },
-  ];
+  
 
-  getPeliculasService(): Pelicula[] {
-    return this.peliculas;
+    constructor(
+    @InjectRepository(Pelicula)
+    private readonly peliculasRepository: Repository<Pelicula>,
+  ) {}
+  
+
+
+getPeliculaService(): Promise<Pelicula[]> {
+    return this.peliculasRepository.find();
   }
 
-  postPeliculaService(nuevaPelicula: Pelicula): string {
+  async postPeliculaService(nuevaPelicula: Pelicula): Promise<string> {
     console.log("Nueva pelicula:", nuevaPelicula);
 
-    this.peliculas.push(nuevaPelicula);
+    await this.peliculasRepository.save(nuevaPelicula);
     console.log("\npeliculas");
-	 console.log("---------------------");
-	 console.table(this.peliculas);
+	console.log("---------------------");
+	console.table(await this.peliculasRepository.find());
 
     return 'Pelicula agregada correctamente!';
   }
 
-  deletePeliculaService(idPelicula: number): string {
+  /*deletePeliculaService(idPelicula: number): string {
     const index = this.peliculas.findIndex(pelicula => pelicula.id === idPelicula);
     if (index !== -1) {
       this.peliculas.splice(index, 1);
@@ -41,6 +47,6 @@ export class PeliculaService {
       return 'Pelicula actualizada correctamente!';
     }
     return 'Pelicula no encontrada!';
-  }
+  }*/
 
 }
