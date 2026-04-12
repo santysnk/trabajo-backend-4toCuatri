@@ -14,22 +14,22 @@ export class PeliculaController {
   }
 
   @Get() //obtener
-  getPeliculasController(): Pelicula[] {
-    return this.peliculaService.getPeliculasService();
+  getPeliculaController(): Promise<Pelicula[]> {
+    return this.peliculaService.getPeliculaService();
   }
 
   @Post() //agregar
-  postPeliculaController(@Body() nuevaPelicula: Pelicula): string {
+  postPeliculaController(@Body() nuevaPelicula: Pelicula): Promise<string> {
     return this.peliculaService.postPeliculaService(nuevaPelicula);
   }
 
-  @Delete() //eliminar
-  deletePeliculaController(@Body() body: { id: number }): string {
+  /*@Delete() //eliminar
+  async deletePeliculaController(@Body() body: { id: number }): Promise<string> {
     return this.peliculaService.deletePeliculaService(body.id);
   }
 
   @Put() //modificar
-  putPeliculaController(@Body() peliculaActualizada: Pelicula): string {
+  async putPeliculaController(@Body() peliculaActualizada: Pelicula): Promise<string> {
     return this.peliculaService.putPeliculaService(peliculaActualizada);
-  }
+  }*/
 }
