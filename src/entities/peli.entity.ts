@@ -1,16 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+
 @Entity()
 export class Pelicula {
   @PrimaryGeneratedColumn()
-  id: number = 0 ;
+  id!: number;
 
   @Column()
-  titulo: string = '';
+  titulo!: string;
 
   @Column()
-  director: string = '';
+  director!: string;
 
   @Column()
-  anio: number = 0;
+   anio!: number;
 }

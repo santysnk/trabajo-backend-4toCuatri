@@ -1,32 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import { Repository } from 'typeorm'; 
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Pelicula } from './entities/peli.entity';
-
+import { PeliculaDto } from './dto/pelicula.dto';
 
 @Injectable()
 export class PeliculaService {
-
-  
-
-    constructor(
+	
+  constructor(
     @InjectRepository(Pelicula)
-    private readonly peliculasRepository: Repository<Pelicula>,
+    private readonly peliculasRepository: Repository<Pelicula>
   ) {}
-  
 
-
-getPeliculaService(): Promise<Pelicula[]> {
+  getPeliculaService(): Promise<Pelicula[]> {
     return this.peliculasRepository.find();
   }
 
-  async postPeliculaService(nuevaPelicula: Pelicula): Promise<string> {
-    console.log("Nueva pelicula:", nuevaPelicula);
+  async postPeliculaService(nuevaPelicula: PeliculaDto): Promise<string> {
+    console.log('Nueva pelicula:', nuevaPelicula);
 
     await this.peliculasRepository.save(nuevaPelicula);
-    console.log("\npeliculas");
-	console.log("---------------------");
-	console.table(await this.peliculasRepository.find());
+    console.log('\npeliculas');
+    console.log('---------------------');
+    console.table(await this.peliculasRepository.find());
 
     return 'Pelicula agregada correctamente!';
   }
@@ -48,5 +44,4 @@ getPeliculaService(): Promise<Pelicula[]> {
     }
     return 'Pelicula no encontrada!';
   }*/
-
 }

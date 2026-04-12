@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { PeliculaService } from './app.service';
-import type { Pelicula } from './interfaces/Pelicula.interface';
+import { Pelicula } from './entities/peli.entity';
+import { PeliculaDto } from './dto/pelicula.dto';
 
 // http://localhost:3000/peliculas
 
@@ -19,7 +20,7 @@ export class PeliculaController {
   }
 
   @Post() //agregar
-  postPeliculaController(@Body() nuevaPelicula: Pelicula): Promise<string> {
+  postPeliculaController(@Body() nuevaPelicula: PeliculaDto): Promise<string> {
     return this.peliculaService.postPeliculaService(nuevaPelicula);
   }
 
