@@ -27,21 +27,22 @@ export class PeliculaService {
     return 'Pelicula agregada correctamente!';
   }
 
-  /*deletePeliculaService(idPelicula: number): string {
-    const index = this.peliculas.findIndex(pelicula => pelicula.id === idPelicula);
-    if (index !== -1) {
-      this.peliculas.splice(index, 1);
-      return 'Pelicula eliminada correctamente!';
-    }
-    return 'Pelicula no encontrada!';
-  }
-
-  putPeliculaService(peliculaActualizada: Pelicula): string {
-    const index = this.peliculas.findIndex(pelicula => pelicula.id === peliculaActualizada.id);
-    if (index !== -1) {
-      this.peliculas[index] = peliculaActualizada;
+  async putPeliculaService(peliculaActualizada: Pelicula): Promise<string> {
+    const peliculaExistente = await this.peliculasRepository.findOne({ where: { id: Number (peliculaActualizada.id)} });
+    if (peliculaExistente) {
+      await this.peliculasRepository.save({ ...peliculaExistente, ...peliculaActualizada });
       return 'Pelicula actualizada correctamente!';
     }
     return 'Pelicula no encontrada!';
-  }*/
+    }
+
+  async deletePeliculaService(id: number): Promise<string> {
+    const index = await this.peliculasRepository.findOne({ where: { id: Number(id) } });
+    if (index) {
+      await this.peliculasRepository.remove(index);
+      return 'Pelicula eliminada correctamente!';
+    }
+    return 'Pelicula no encontrada!';
+  } 
+  
 }

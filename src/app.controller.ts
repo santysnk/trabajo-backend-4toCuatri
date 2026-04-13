@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { PeliculaService } from './app.service';
 import { Pelicula } from './entities/peli.entity';
 import { PeliculaDto } from './dto/pelicula.dto';
+import { PeliculaActualizadaDto } from './dto/peliculaActualizada.dto';
 
 // http://localhost:3000/peliculas
 
@@ -24,13 +25,13 @@ export class PeliculaController {
     return this.peliculaService.postPeliculaService(nuevaPelicula);
   }
 
-  /*@Delete() //eliminar
-  async deletePeliculaController(@Body() body: { id: number }): Promise<string> {
-    return this.peliculaService.deletePeliculaService(body.id);
+   @Put() //modificar
+  async putPeliculaController(@Body() peliculaActualizada: PeliculaActualizadaDto): Promise<string> {
+    return this.peliculaService.putPeliculaService(peliculaActualizada);
+  }
+  @Delete(':id') //eliminar
+  async deletePeliculaController(@Param('id') id: number ): Promise<string> {
+    return this.peliculaService.deletePeliculaService(id);
   }
 
-  @Put() //modificar
-  async putPeliculaController(@Body() peliculaActualizada: Pelicula): Promise<string> {
-    return this.peliculaService.putPeliculaService(peliculaActualizada);
-  }*/
 }
