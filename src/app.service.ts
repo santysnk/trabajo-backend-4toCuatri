@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pelicula } from './entities/peli.entity';
 import { PeliculaDto } from './dto/pelicula.dto';
+import { PeliculaActualizadaDto } from './dto/peliculaActualizada.dto';
 
 @Injectable()
 export class PeliculaService {
@@ -27,10 +28,11 @@ export class PeliculaService {
     return 'Pelicula agregada correctamente!';
   }
 
-  async putPeliculaService(peliculaActualizada: Pelicula): Promise<string> {
-    const peliculaExistente = await this.peliculasRepository.findOne({ where: { id: Number (peliculaActualizada.id)} });
+  async putPeliculaService(id: number, peliculaActualizada: PeliculaActualizadaDto): Promise<string> {
+    const peliculaExistente = await this.peliculasRepository.findOne({ where: { id: id } });
     if (peliculaExistente) {
-      await this.peliculasRepository.save({ ...peliculaExistente, ...peliculaActualizada });
+      const peliActualizada = {...peliculaExistente, ...peliculaActualizada, id: id}
+      await this.peliculasRepository.save(peliActualizada);
       return 'Pelicula actualizada correctamente!';
     }
     return 'Pelicula no encontrada!';

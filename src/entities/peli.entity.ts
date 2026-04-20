@@ -13,5 +13,5 @@ export class Pelicula {
   director!: string;
 
   @Column()
-   anio!: number;
+  anio!: number;
 }

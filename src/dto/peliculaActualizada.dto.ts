@@ -1,10 +1,10 @@
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { IsInt, IsNotEmpty, IsString ,IsOptional} from 'class-validator';
 
 
 export class PeliculaActualizadaDto {
-    @IsInt()    
-    @IsNotEmpty()
-    id!: number;
+    @IsInt()  
+    @IsOptional()  
+    id?: number;
 
     @IsString()
     @IsNotEmpty()

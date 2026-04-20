@@ -25,9 +25,9 @@ export class PeliculaController {
     return this.peliculaService.postPeliculaService(nuevaPelicula);
   }
 
-   @Put() //modificar
-  async putPeliculaController(@Body() peliculaActualizada: PeliculaActualizadaDto): Promise<string> {
-    return this.peliculaService.putPeliculaService(peliculaActualizada);
+   @Put(':id') //modificar
+  async putPeliculaController(@Param('id') id: string ,@Body() peliculaActualizada: PeliculaActualizadaDto): Promise<string> {
+    return this.peliculaService.putPeliculaService(+id, peliculaActualizada);
   }
   @Delete(':id') //eliminar
   async deletePeliculaController(@Param('id') id: number ): Promise<string> {
